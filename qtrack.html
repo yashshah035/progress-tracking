@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer Roadmap — Yash Shah</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:#f8fafc;color:#0f172a;
+    background-image:radial-gradient(55rem 22rem at 85% -6%,rgba(79,70,229,.07),transparent),
+                     radial-gradient(45rem 20rem at 5% -2%,rgba(13,148,136,.06),transparent);}
+
+  /* phase color systems (muted, harmonious) */
+  .c0{--ph:#4f46e5;--soft:#eef2ff;--ring:#c7d2fe}
+  .c1{--ph:#2563eb;--soft:#eff6ff;--ring:#bfdbfe}
+  .c2{--ph:#0d9488;--soft:#f0fdfa;--ring:#99f6e4}
+  .c3{--ph:#d97706;--soft:#fffbeb;--ring:#fde68a}
+  .c4{--ph:#e11d48;--soft:#fff1f2;--ring:#fecdd3}
+  .c5{--ph:#7c3aed;--soft:#f5f3ff;--ring:#ddd6fe}
+  .c6{--ph:#0284c7;--soft:#f0f9ff;--ring:#bae6fd}
+  .c7{--ph:#059669;--soft:#ecfdf5;--ring:#a7f3d0}
+
+  .gradline{height:3px;background:linear-gradient(90deg,#4f46e5,#7c3aed,#0d9488,#d97706)}
+  .grad{background:linear-gradient(90deg,#4f46e5,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* nav */
+  .nav-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;font-size:13px;font-weight:500;
+    color:#475569;white-space:nowrap;transition:all .18s;border:1px solid transparent;cursor:pointer}
+  .nav-item:hover{background:#f1f5f9;color:#0f172a}
+  .nav-item .num{flex:none;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;
+    font-size:10px;font-weight:700;background:var(--soft);color:var(--ph);border:1px solid var(--ring)}
+  .nav-item.active{background:var(--soft);color:var(--ph);border-color:var(--ring);font-weight:600;
+    box-shadow:0 2px 8px -2px color-mix(in srgb,var(--ph) 25%,transparent)}
+  .cnt{margin-left:auto;font-size:11px;font-weight:600;color:#94a3b8;background:#f1f5f9;padding:2px 8px;border-radius:999px}
+  .nav-item.active .cnt{background:#fff;color:var(--ph)}
+  .cnt.full{background:#ecfdf5 !important;color:#059669 !important}
+
+  /* panels */
+  .panel{display:none}
+  .panel.active{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ph,#94a3b8)}
+
+  .ptile{width:46px;height:46px;border-radius:13px;background:var(--soft);border:1px solid var(--ring);
+    display:grid;place-items:center;font-size:22px;box-shadow:0 4px 10px -4px color-mix(in srgb,var(--ph) 30%,transparent)}
+
+  .why{background:var(--soft);border-left:3px solid var(--ph);color:#475569}
+  .proj{background:var(--soft);border:1.5px dashed var(--ring)}
+
+  /* tasks */
+  .task{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #e2e8f0;border-radius:12px;
+    background:#fff;cursor:pointer;transition:all .18s}
+  .task:hover{border-color:var(--ring);box-shadow:0 4px 14px -6px color-mix(in srgb,var(--ph) 25%,transparent);transform:translateY(-1px)}
+  .task input{position:absolute;opacity:0;pointer-events:none}
+  .box{flex:none;width:20px;height:20px;margin-top:1px;border-radius:6px;border:1.5px solid #cbd5e1;background:#fff;
+    display:grid;place-items:center;transition:all .2s}
+  .box svg{width:12px;height:12px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .25s .05s}
+  .task input:checked ~ .box{background:var(--ph);border-color:var(--ph)}
+  .task input:checked ~ .box svg{stroke-dashoffset:0}
+  .task input:checked ~ .task-text{color:#94a3b8;text-decoration:line-through}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 10px;margin:3px 4px 0 0;
+    border-radius:6px;border:1px solid #e2e8f0;background:#f8fafc;color:#475569;text-decoration:none;transition:all .15s}
+  .chip:hover{border-color:var(--ring);color:var(--ph);background:var(--soft)}
+
+  .stat{transition:all .2s}
+  .stat:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(15,23,42,.15)}
+</style>
+</head>
+<body>
+
+<div class="gradline fixed top-0 left-0 right-0 z-50"></div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 lg:px-6 h-14 flex items-center gap-3">
+    <div class="w-8 h-8 rounded-lg text-white grid place-items-center flex-none shadow-md" style="background:linear-gradient(135deg,#4f46e5,#7c3aed)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+    </div>
+    <div class="flex-1 min-w-0">
+      <h1 class="text-sm font-bold leading-tight truncate">AI Engineer Roadmap</h1>
+      <p class="text-[11px] text-slate-500 leading-tight">Yash Shah · 9-month rebuild plan · 1–1.5 h/day</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="w-28 sm:w-40 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+        <div id="bar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#4f46e5,#7c3aed)"></div>
+      </div>
+      <span id="pct" class="text-xs font-bold text-slate-700 w-9 text-right">0%</span>
+      <button id="reset" class="text-[11px] text-slate-400 hover:text-red-600 underline">Reset</button>
+    </div>
+  </div>
+</header>
+
+<div class="max-w-6xl mx-auto px-4 lg:px-6 py-6 flex flex-col lg:flex-row gap-6">
+
+  <!-- SIDEBAR -->
+  <aside class="flex-none lg:w-64">
+    <p class="label c0 hidden lg:block mb-2 px-3" style="--ph:#94a3b8">Roadmap</p>
+    <nav id="nav" class="flex lg:flex-col gap-1.5 overflow-x-auto pb-2 lg:pb-0 lg:sticky lg:top-20">
+      <button class="nav-item c0 active" data-goto="overview"><span class="num">•</span>Overview</button>
+      <button class="nav-item c1" data-goto="p1"><span class="num">01</span>Python & SQL<span class="cnt" data-cnt="p1"></span></button>
+      <button class="nav-item c2" data-goto="p2"><span class="num">02</span>Data + Math<span class="cnt" data-cnt="p2"></span></button>
+      <button class="nav-item c3" data-goto="p3"><span class="num">03</span>Core ML<span class="cnt" data-cnt="p3"></span></button>
+      <button class="nav-item c4" data-goto="p4"><span class="num">04</span>Deep Learning + NLP<span class="cnt" data-cnt="p4"></span></button>
+      <button class="nav-item c5" data-goto="p5"><span class="num">05</span>LLMs, RAG & Agents<span class="cnt" data-cnt="p5"></span></button>
+      <button class="nav-item c6" data-goto="p6"><span class="num">06</span>Production / MLOps<span class="cnt" data-cnt="p6"></span></button>
+      <button class="nav-item c7" data-goto="p7"><span class="num">07</span>Portfolio & Jobs<span class="cnt" data-cnt="p7"></span></button>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="flex-1 min-w-0">
+
+    <!-- OVERVIEW -->
+    <section class="panel c0 active" id="overview">
+      <p class="label">Overview</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold mt-1">Goal: become a strong <span class="grad">AI/ML Engineer</span></h2>
+      <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+        You already have real experience (RAG, GraphRAG, FastAPI, Docker, LLM deployment).
+        But you feel your basics are weak. So this roadmap <b>rebuilds your foundation first</b>,
+        then levels you up to production-ready AI Engineer skills. Simple rule:
+        <b>learn → code by hand → build on weekends.</b>
+      </p>
+
+      <div class="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="stat p-3.5 rounded-xl border border-indigo-100 bg-white text-center">
+          <p class="text-sm font-bold text-indigo-700">7 phases</p><p class="text-[11px] text-slate-500 mt-0.5">~36 weeks</p>
+        </div>
+        <div class="stat p-3.5 rounded-xl border border-sky-100 bg-white text-center">
+          <p class="text-sm font-bold text-sky-700">60–90 min</p><p class="text-[11px] text-slate-500 mt-0.5">weekdays</p>
+        </div>
+        <div class="stat p-3.5 rounded-xl border border-amber-100 bg-white text-center">
+          <p class="text-sm font-bold text-amber-700">3–4 h</p><p class="text-[11px] text-slate-500 mt-0.5">weekend projects</p>
+        </div>
+        <div class="stat p-3.5 rounded-xl border border-emerald-100 bg-white text-center">
+          <p class="text-sm font-bold text-emerald-700">Auto-saved</p><p class="text-[11px] text-slate-500 mt-0.5">progress tracking</p>
+        </div>
+      </div>
+
+      <h3 class="label mt-8 mb-3" style="--ph:#94a3b8">Study rules</h3>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="stat p-4 rounded-xl border border-slate-200 bg-white">
+          <p class="text-sm font-bold flex items-center gap-2.5"><span class="w-8 h-8 rounded-lg grid place-items-center bg-indigo-50 text-indigo-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>Weekday (60–90 min)</p>
+          <p class="text-[13px] text-slate-600 mt-2 leading-relaxed">30 min course/video → 45 min coding by hand → 10 min writing notes in your own words.</p>
+        </div>
+        <div class="stat p-4 rounded-xl border border-slate-200 bg-white">
+          <p class="text-sm font-bold flex items-center gap-2.5"><span class="w-8 h-8 rounded-lg grid place-items-center bg-amber-50 text-amber-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>Weekend (3–4 h)</p>
+          <p class="text-[13px] text-slate-600 mt-2 leading-relaxed">Build the weekend project of your current phase. Projects are where real learning sticks.</p>
+        </div>
+        <div class="stat p-4 rounded-xl border border-slate-200 bg-white">
+          <p class="text-sm font-bold flex items-center gap-2.5"><span class="w-8 h-8 rounded-lg grid place-items-center bg-violet-50 text-violet-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="14" r=".5"/><circle cx="15" cy="14" r=".5"/></svg></span>Coding-agent rules</p>
+          <p class="text-[13px] text-slate-600 mt-2 leading-relaxed">Phases 1–3: <b>no agents</b> for exercises (agents only to explain). After that: agents allowed, but you must explain every line they write. Use them as a tutor: "quiz me", "why this error?"</p>
+        </div>
+        <div class="stat p-4 rounded-xl border border-slate-200 bg-white">
+          <p class="text-sm font-bold flex items-center gap-2.5"><span class="w-8 h-8 rounded-lg grid place-items-center bg-emerald-50 text-emerald-600"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>Tracking</p>
+          <p class="text-[13px] text-slate-600 mt-2 leading-relaxed">Tick each checkbox when done. Progress saves automatically in this browser. 1 hour daily beats 7 hours on Sunday.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 1 -->
+    <section class="panel c1" id="p1">
+      <div class="flex items-center gap-4">
+        <span class="ptile">🐍</span>
+        <div><p class="label">Phase 01 · Weeks 1–4</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">Rebuild Python & SQL</h2>
+        <p class="text-sm text-slate-500">Goal: write Python & SQL without help</p></div>
+      </div>
+      <div class="why mt-4 p-3.5 rounded-lg text-[13px] leading-relaxed">Why: everything else (ML, LLMs, APIs) sits on top of Python. If this is weak, everything feels hard.</div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p1a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Python basics: variables, loops, functions, lists/dicts<br><a class="chip" target="_blank" rel="noopener" href="https://cs50.harvard.edu/python/">CS50P (free) ↗</a><a class="chip" target="_blank" rel="noopener" href="https://www.py4e.com/">py4e ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p1b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Python mid-level: OOP, error handling, files<br><a class="chip" target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/">Official tutorial ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p1c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Daily 15-min practice (easy problems, every day)<br><a class="chip" target="_blank" rel="noopener" href="https://www.hackerrank.com/domains/python">HackerRank ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p1d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">SQL basics: SELECT, WHERE, JOIN, GROUP BY<br><a class="chip" target="_blank" rel="noopener" href="https://sqlbolt.com/">SQLBolt ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p1e"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">SQL practice until joins feel easy<br><a class="chip" target="_blank" rel="noopener" href="https://sqlzoo.net/">SQLZoo ↗</a></span></label>
+      </div>
+      <div class="proj mt-4 p-4 rounded-xl text-sm text-slate-700"><span class="label block mb-1">Weekend project</span>A CLI expense tracker that saves data in SQLite (uses Python + SQL together).</div>
+      <div class="mt-6 flex justify-end"><button class="nav-item c2" data-goto="p2">Next: Data + Math →</button></div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section class="panel c2" id="p2">
+      <div class="flex items-center gap-4">
+        <span class="ptile">📊</span>
+        <div><p class="label">Phase 02 · Weeks 5–8</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">Data handling + math refresh</h2>
+        <p class="text-sm text-slate-500">Goal: clean & explore data; understand math in plain words</p></div>
+      </div>
+      <div class="why mt-4 p-3.5 rounded-lg text-[13px] leading-relaxed">Why: a data scientist's daily job is mostly data cleaning + exploration. Math intuition makes ML make sense instead of magic.</div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p2a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">NumPy basics<br><a class="chip" target="_blank" rel="noopener" href="https://www.kaggle.com/learn/numpy">Kaggle Learn ↗</a><a class="chip" target="_blank" rel="noopener" href="https://github.com/rougier/numpy-100">100 exercises ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p2b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Pandas + data cleaning<br><a class="chip" target="_blank" rel="noopener" href="https://www.kaggle.com/learn/pandas">Kaggle Pandas ↗</a><a class="chip" target="_blank" rel="noopener" href="https://www.kaggle.com/learn/data-cleaning">Data Cleaning ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p2c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Linear algebra intuition (watch like a show)<br><a class="chip" target="_blank" rel="noopener" href="https://www.3blue1brown.com/topics/linear-algebra">3Blue1Brown ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p2d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Stats & probability intuition<br><a class="chip" target="_blank" rel="noopener" href="https://www.youtube.com/@statquest">StatQuest ↗</a></span></label>
+      </div>
+      <div class="proj mt-4 p-4 rounded-xl text-sm text-slate-700"><span class="label block mb-1">Weekend project</span>Full EDA notebook on a health dataset (e.g., UCI Heart Disease) — connects to your bio-medical domain.</div>
+      <div class="mt-6 flex justify-between"><button class="nav-item c1" data-goto="p1">← Python & SQL</button><button class="nav-item c3" data-goto="p3">Next: Core ML →</button></div>
+    </section>
+
+    <!-- PHASE 3 -->
+    <section class="panel c3" id="p3">
+      <div class="flex items-center gap-4">
+        <span class="ptile">🤖</span>
+        <div><p class="label">Phase 03 · Weeks 9–14</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">Core Machine Learning</h2>
+        <p class="text-sm text-slate-500">Goal: train, test & explain classic ML models yourself</p></div>
+      </div>
+      <div class="why mt-4 p-3.5 rounded-lg text-[13px] leading-relaxed">Why: regression, classification, clustering, feature engineering, model evaluation — these are on your resume and in every ML interview.</div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p3a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Main course (audit free): Andrew Ng ML Specialization<br><a class="chip" target="_blank" rel="noopener" href="https://www.coursera.org/specializations/machine-learning-introduction">Coursera ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p3b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Second explanation when confused<br><a class="chip" target="_blank" rel="noopener" href="https://developers.google.com/machine-learning/crash-course">Google ML Crash Course ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p3c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">scikit-learn hands-on<br><a class="chip" target="_blank" rel="noopener" href="https://www.kaggle.com/learn/intro-to-machine-learning">Kaggle ML ↗</a><a class="chip" target="_blank" rel="noopener" href="https://www.kaggle.com/learn/feature-engineering">Feature Eng. ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p3d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Model evaluation: cross-validation, precision/recall, ROC<br><a class="chip" target="_blank" rel="noopener" href="https://www.youtube.com/@statquest">StatQuest ↗</a></span></label>
+      </div>
+      <div class="proj mt-4 p-4 rounded-xl text-sm text-slate-700"><span class="label block mb-1">Weekend project</span>Clean → train → evaluate → save a model (joblib) on a public disease-prediction dataset. Like your phenotype work, but by hand.</div>
+      <div class="mt-6 flex justify-between"><button class="nav-item c2" data-goto="p2">← Data + Math</button><button class="nav-item c4" data-goto="p4">Next: Deep Learning →</button></div>
+    </section>
+
+    <!-- PHASE 4 -->
+    <section class="panel c4" id="p4">
+      <div class="flex items-center gap-4">
+        <span class="ptile">🧠</span>
+        <div><p class="label">Phase 04 · Weeks 15–20</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">Deep Learning + NLP</h2>
+        <p class="text-sm text-slate-500">Goal: understand neural nets & fine-tune Transformers</p></div>
+      </div>
+      <div class="why mt-4 p-3.5 rounded-lg text-[13px] leading-relaxed">Why: your resume says PyTorch, TensorFlow, Deep Learning, NLP, Computer Vision. This phase makes those true again.</div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p4a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">PyTorch basics<br><a class="chip" target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html">60-min Blitz ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p4b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Learn by doing (lessons 1–4)<br><a class="chip" target="_blank" rel="noopener" href="https://course.fast.ai/">fast.ai (free) ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p4c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Transformers & NLP, chapters 1–5<br><a class="chip" target="_blank" rel="noopener" href="https://huggingface.co/learn/nlp-course/chapter1/1">HF NLP Course ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p4d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Optional theory backup<br><a class="chip" target="_blank" rel="noopener" href="https://www.coursera.org/specializations/deep-learning">DL Specialization ↗</a></span></label>
+      </div>
+      <div class="proj mt-4 p-4 rounded-xl text-sm text-slate-700"><span class="label block mb-1">Weekend project</span>Fine-tune a small text classifier (e.g., DistilBERT) and run it locally — no agent writing it for you.</div>
+      <div class="mt-6 flex justify-between"><button class="nav-item c3" data-goto="p3">← Core ML</button><button class="nav-item c5" data-goto="p5">Next: LLMs & RAG →</button></div>
+    </section>
+
+    <!-- PHASE 5 -->
+    <section class="panel c5" id="p5">
+      <div class="flex items-center gap-4">
+        <span class="ptile">🚀</span>
+        <div><p class="label">Phase 05 · Weeks 21–26</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">LLMs, RAG & Agents — your superpower</h2>
+        <p class="text-sm text-slate-500">Goal: build & evaluate RAG/agent systems properly</p></div>
+      </div>
+      <div class="why mt-4 p-3.5 rounded-lg text-[13px] leading-relaxed">Why: this is the hottest skill in the market AND your resume core (RAG, GraphRAG, LangChain, MCP, MiniRAG). This phase makes you dangerous here.</div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p5a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">LLM fundamentals<br><a class="chip" target="_blank" rel="noopener" href="https://huggingface.co/learn/llm-course/chapter1/1">HF LLM Course ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p5b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Short free courses: LangChain + RAG<br><a class="chip" target="_blank" rel="noopener" href="https://www.deeplearning.ai/short-courses/">DeepLearning.AI ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p5c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">RAG from scratch: chunking → embeddings → ChromaDB → retrieval → eval<br><a class="chip" target="_blank" rel="noopener" href="https://docs.ragas.io/">RAGAS eval ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p5d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Read your own MiniRAG code file-by-file & explain each one out loud<br><a class="chip" target="_blank" rel="noopener" href="https://github.com/yashshah035/MiniRAG">Your repo ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p5e"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Agents & MCP<br><a class="chip" target="_blank" rel="noopener" href="https://anthropic.skilljar.com/">MCP course (Anthropic) ↗</a><a class="chip" target="_blank" rel="noopener" href="https://github.com/langchain-ai/langchain-academy">LangChain Academy ↗</a></span></label>
+      </div>
+      <div class="proj mt-4 p-4 rounded-xl text-sm text-slate-700"><span class="label block mb-1">Weekend project</span>Rebuild your Research Paper Chatbot from scratch, add RAGAS eval scores, write a great README. This becomes portfolio piece #1.</div>
+      <div class="mt-6 flex justify-between"><button class="nav-item c4" data-goto="p4">← Deep Learning</button><button class="nav-item c6" data-goto="p6">Next: Production →</button></div>
+    </section>
+
+    <!-- PHASE 6 -->
+    <section class="panel c6" id="p6">
+      <div class="flex items-center gap-4">
+        <span class="ptile">⚙️</span>
+        <div><p class="label">Phase 06 · Weeks 27–32</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">Production engineering (MLOps lite)</h2>
+        <p class="text-sm text-slate-500">Goal: ship code like a software engineer</p></div>
+      </div>
+      <div class="why mt-4 p-3.5 rounded-lg text-[13px] leading-relaxed">Why: this is what separates "AI Engineer" from "notebook data scientist". Your resume already lists FastAPI, Docker, CI/CD, Redis — now own them deeply.</div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p6a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">FastAPI properly (build 2 small APIs)<br><a class="chip" target="_blank" rel="noopener" href="https://fastapi.tiangolo.com/tutorial/">FastAPI docs ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p6b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Docker: containerize your API<br><a class="chip" target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Docker docs ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p6c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Write tests with pytest<br><a class="chip" target="_blank" rel="noopener" href="https://docs.pytest.org/en/stable/getting-started.html">pytest docs ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p6d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">CI/CD: tests run automatically on push<br><a class="chip" target="_blank" rel="noopener" href="https://docs.github.com/en/actions/quickstart">GitHub Actions ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p6e"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Big picture of production ML<br><a class="chip" target="_blank" rel="noopener" href="https://madewithml.com/">Made With ML (free) ↗</a></span></label>
+      </div>
+      <div class="proj mt-4 p-4 rounded-xl text-sm text-slate-700"><span class="label block mb-1">Weekend project</span>Model-serving service: FastAPI + Docker + pytest + GitHub Actions, deployed free (Render / AWS free tier). Portfolio piece #2.</div>
+      <div class="mt-6 flex justify-between"><button class="nav-item c5" data-goto="p5">← LLMs & RAG</button><button class="nav-item c7" data-goto="p7">Next: Portfolio →</button></div>
+    </section>
+
+    <!-- PHASE 7 -->
+    <section class="panel c7" id="p7">
+      <div class="flex items-center gap-4">
+        <span class="ptile">💼</span>
+        <div><p class="label">Phase 07 · Weeks 33–36</p>
+        <h2 class="text-2xl font-extrabold mt-0.5">Portfolio, interviews, job push</h2>
+        <p class="text-sm text-slate-500">Goal: show your work & pass interviews</p></div>
+      </div>
+      <div class="mt-4 space-y-2">
+        <label class="task"><input type="checkbox" data-id="p7a"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Polish 3 GitHub projects with clean READMEs (chatbot, model service, ML project)</span></label>
+        <label class="task"><input type="checkbox" data-id="p7b"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Continue open source: 1 meaningful MiniRAG PR per month<br><a class="chip" target="_blank" rel="noopener" href="https://github.com/yashshah035/MiniRAG">GitHub ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p7c"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">50 easy + 20 medium LeetCode (focus: SQL, arrays, strings)<br><a class="chip" target="_blank" rel="noopener" href="https://leetcode.com/">LeetCode ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p7d"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">ML system design basics<br><a class="chip" target="_blank" rel="noopener" href="https://github.com/donnemartin/system-design-primer">System Design Primer ↗</a><a class="chip" target="_blank" rel="noopener" href="https://huyenchip.com/">Chip Huyen's blog ↗</a></span></label>
+        <label class="task"><input type="checkbox" data-id="p7e"><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5 6.5 12 13 4.5"/></svg></span><span class="task-text text-sm leading-relaxed">Apply to 5 jobs/week + 1 mock interview/week (friend or Pramp)</span></label>
+      </div>
+      <div class="mt-4 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-sm text-emerald-900"><span class="label block mb-1" style="--ph:#059669">End state</span>You can say "I know Python, ML, LLMs/RAG, and I can ship to production" — and prove it with code. That is exactly what AI Engineer interviews test.</div>
+      <div class="mt-6 flex justify-between"><button class="nav-item c6" data-goto="p6">← Production</button><button class="nav-item c0" data-goto="overview">Back to Overview</button></div>
+    </section>
+
+    <p class="mt-10 text-center text-[11px] text-slate-400">All sources are free or free-to-audit · Progress saves in your browser · Built for 1–1.5 h/day</p>
+  </main>
+</div>
+
+<script>
+  const KEY = 'yashRoadmapV1';
+  let store = {};
+  try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+
+  const boxes = document.querySelectorAll('.task input[type=checkbox]');
+
+  function update() {
+    const all = [...boxes];
+    const done = all.filter(b => b.checked).length;
+    document.getElementById('bar').style.width = (all.length ? (done/all.length)*100 : 0) + '%';
+    document.getElementById('pct').textContent = Math.round((done/all.length)*100) + '%';
+
+    ['p1','p2','p3','p4','p5','p6','p7'].forEach(id => {
+      const pb = [...document.querySelectorAll('#'+id+' .task input')];
+      const pd = pb.filter(b => b.checked).length;
+      const cnt = document.querySelector('[data-cnt="'+id+'"]');
+      if (cnt) {
+        cnt.textContent = (pd === pb.length) ? '✓' : pd + '/' + pb.length;
+        cnt.classList.toggle('full', pd === pb.length);
+      }
+    });
+  }
+
+  boxes.forEach(b => {
+    if (store[b.dataset.id]) b.checked = true;
+    b.addEventListener('change', () => {
+      store[b.dataset.id] = b.checked;
+      localStorage.setItem(KEY, JSON.stringify(store));
+      update();
+    });
+  });
+
+  document.querySelectorAll('[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.goto;
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === t));
+      document.querySelectorAll('#nav .nav-item').forEach(n => n.classList.toggle('active', n.dataset.goto === t));
+      if (window.innerWidth < 1024) window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    if (confirm('Clear all progress?')) {
+      store = {}; localStorage.removeItem(KEY);
+      boxes.forEach(b => b.checked = false); update();
+    }
+  });
+
+  update();
+</script>
+</body>
+</html>
