@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI/ML Roadmap Log</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --paper:#EFEBE1;
+  --paper-raised:#F5F2E9;
+  --line:#D6CFBB;
+  --ink:#25261F;
+  --ink-soft:#6B6C5E;
+  --accent:#3F6B57;
+  --accent-soft:#DCE6DD;
+  --amber:#B5732A;
+  --amber-soft:#EEDFC7;
+  --radius:3px;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ---------- Header ---------- */
+.masthead{
+  padding:28px 24px 20px;
+  border-bottom:1px solid var(--line);
+}
+.masthead-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  flex-wrap:wrap;
+  max-width:1080px;
+  margin:0 auto;
+}
+.masthead h1{
+  font-family:'Source Serif 4',Georgia,serif;
+  font-weight:600;
+  font-size:28px;
+  margin:0 0 4px;
+  letter-spacing:-0.01em;
+}
+.masthead p{
+  margin:0;
+  color:var(--ink-soft);
+  font-size:14px;
+  max-width:46ch;
+}
+.progress-block{
+  min-width:220px;
+  text-align:right;
+}
+.progress-number{
+  font-family:'JetBrains Mono',monospace;
+  font-size:30px;
+  font-weight:700;
+  color:var(--accent);
+  line-height:1;
+}
+.progress-label{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-top:4px;
+}
+.progress-bar-track{
+  width:220px;
+  height:6px;
+  background:var(--line);
+  border-radius:99px;
+  margin-top:10px;
+  overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;
+  background:var(--accent);
+  border-radius:99px;
+  transition:width .4s ease;
+}
+
+/* ---------- Layout ---------- */
+.app{
+  max-width:1080px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:0;
+}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr;}
+}
+
+/* ---------- Phase nav ---------- */
+.phase-nav{
+  border-right:1px solid var(--line);
+  padding:20px 12px;
+}
+@media (max-width:760px){
+  .phase-nav{
+    border-right:none;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    overflow-x:auto;
+    padding:14px 16px;
+    gap:8px;
+  }
+}
+.phase-btn{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  width:100%;
+  text-align:left;
+  padding:10px 12px;
+  margin-bottom:4px;
+  border:none;
+  background:transparent;
+  border-radius:var(--radius);
+  cursor:pointer;
+  font-size:13.5px;
+  color:var(--ink-soft);
+  font-family:'Inter',sans-serif;
+}
+@media (max-width:760px){
+  .phase-btn{width:auto;white-space:nowrap;margin-bottom:0;}
+}
+.phase-btn:hover{background:var(--paper-raised);}
+.phase-btn.active{
+  background:var(--accent-soft);
+  color:var(--ink);
+  font-weight:600;
+}
+.phase-btn .tick{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--ink-soft);
+  flex-shrink:0;
+}
+.phase-btn.done .tick{color:var(--accent);}
+.phase-btn.done::before{
+  content:"✓";
+  color:var(--accent);
+  font-size:11px;
+  margin-right:2px;
+}
+
+/* ---------- Main ---------- */
+.main{padding:24px 28px 60px;}
+@media (max-width:760px){.main{padding:20px 16px 60px;}}
+
+.phase-header{
+  margin-bottom:22px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--line);
+}
+.phase-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--accent);
+  margin-bottom:6px;
+}
+.phase-header h2{
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:22px;
+  font-weight:600;
+  margin:0 0 8px;
+}
+.phase-header .goal{
+  color:var(--ink-soft);
+  font-size:14px;
+  max-width:64ch;
+}
+
+.week-block{
+  margin-bottom:26px;
+}
+.week-title{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  margin-bottom:10px;
+}
+.week-title .wk{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--ink-soft);
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  padding:2px 7px;
+  border-radius:99px;
+}
+.week-title .topic{
+  font-weight:600;
+  font-size:15.5px;
+}
+
+.task{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:10px;
+  padding:10px 8px;
+  border-radius:var(--radius);
+  align-items:start;
+}
+.task:hover{background:var(--paper-raised);}
+.task input[type="checkbox"]{
+  appearance:none;
+  width:18px;
+  height:18px;
+  border:1.5px solid var(--ink-soft);
+  border-radius:4px;
+  margin-top:2px;
+  cursor:pointer;
+  position:relative;
+  background:var(--paper-raised);
+  flex-shrink:0;
+}
+.task input[type="checkbox"]:checked{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+.task input[type="checkbox"]:checked::after{
+  content:"";
+  position:absolute;
+  left:5px;
+  top:1px;
+  width:5px;
+  height:9px;
+  border:solid white;
+  border-width:0 2px 2px 0;
+  transform:rotate(40deg);
+}
+.task-body .task-title{
+  font-weight:500;
+  font-size:14.5px;
+  margin-bottom:2px;
+}
+.task.checked .task-title{
+  color:var(--ink-soft);
+  text-decoration:line-through;
+  text-decoration-color:var(--line);
+}
+.task-body .task-desc{
+  font-size:13.5px;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.task-body .task-source{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  color:var(--accent);
+  text-decoration:none;
+  background:var(--accent-soft);
+  padding:2px 8px;
+  border-radius:99px;
+}
+.task-body .task-source:hover{background:var(--amber-soft);color:var(--amber);}
+
+.artifact-note{
+  margin-top:8px;
+  padding:12px 14px;
+  background:var(--amber-soft);
+  border-left:3px solid var(--amber);
+  border-radius:var(--radius);
+  font-size:13.5px;
+  color:#5C4319;
+}
+.artifact-note b{color:var(--amber);}
+
+.footer-bar{
+  max-width:1080px;
+  margin:0 auto;
+  padding:14px 28px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:var(--ink-soft);
+  font-size:12.5px;
+}
+.reset-link{
+  background:none;
+  border:none;
+  color:var(--ink-soft);
+  text-decoration:underline;
+  cursor:pointer;
+  font-size:12.5px;
+  font-family:'Inter',sans-serif;
+}
+.reset-link:hover{color:var(--amber);}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-top">
+    <div>
+      <h1>AI/ML Roadmap Log</h1>
+      <p>Life-Sciences GenAI/LLM Engineer track — six phases, built for ~1–1.5 hrs on weekdays and longer weekend blocks.</p>
+    </div>
+    <div class="progress-block">
+      <div class="progress-number"><span id="doneCount">0</span><span class="mono" style="color:var(--ink-soft);font-size:16px;">/<span id="totalCount">0</span></span></div>
+      <div class="progress-label">tasks logged</div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <nav class="phase-nav" id="phaseNav"></nav>
+  <main class="main" id="mainPanel"></main>
+</div>
+
+<div class="footer-bar">
+  <span>Progress is saved automatically to this artifact.</span>
+  <button class="reset-link" id="resetBtn">Clear all progress</button>
+</div>
+
+<script>
+const DATA = [
+  {
+    id: "p0",
+    title: "Foundations Rebuild",
+    weeks: "Weeks 1–5",
+    goal: "Stop treating Python/ML/APIs as things you copy-paste — get back to things you can derive.",
+    weekGroups: [
+      {
+        wk: "Wk 1",
+        topic: "Python fundamentals, refreshed",
+        tasks: [
+          { t: "Rebuild fluency with generators", d: "Write 2–3 small utilities from scratch using generators (yield, generator expressions) until they feel natural again, not memorized.", src: "Real Python — generators", url: "https://realpython.com/ref/glossary/generator" },
+          { t: "Rebuild fluency with decorators", d: "Write your own decorators (with and without arguments) until you understand what @decorator is actually doing.", src: "Real Python — decorators primer", url: "https://realpython.com/primer-on-python-decorators/" },
+          { t: "Context managers & type hints", d: "Practice writing your own context managers (__enter__/__exit__) and add full type hints to an old script.", src: "Real Python — with statement", url: "https://realpython.com/python-with-statement/" },
+          { t: "asyncio basics", d: "Learn async/await fundamentals — coroutines, event loop, gather() — since FastAPI leans on this.", src: "Real Python", url: "https://realpython.com/async-io-python/" },
+          { t: "Rewrite 3 old scripts", d: "Take 3 of your own old scripts and rewrite them with proper typing and async where relevant.", src: "Your own repos", url: "" }
+        ]
+      },
+      {
+        wk: "Wk 2",
+        topic: "FastAPI from scratch",
+        tasks: [
+          { t: "Rebuild a mini FastAPI service", d: "Not a tutorial clone — build something from your own domain, e.g. a small phenotype-lookup API.", src: "FastAPI docs — First Steps", url: "https://fastapi.tiangolo.com/tutorial/first-steps/" },
+          { t: "Pydantic v2 models properly", d: "Practice validators, nested models, and settings management with Pydantic v2 (not v1 habits).", src: "FastAPI docs — Request Body", url: "https://fastapi.tiangolo.com/tutorial/body/" },
+          { t: "Dependency injection", d: "Use FastAPI's Depends() system deliberately for auth/db sessions instead of global objects.", src: "FastAPI docs", url: "https://fastapi.tiangolo.com/tutorial/dependencies/" },
+          { t: "Background tasks", d: "Add a background task to your mini API (e.g. async logging or notification) to understand the pattern.", src: "FastAPI docs", url: "https://fastapi.tiangolo.com/tutorial/background-tasks/" }
+        ],
+        artifact: "Mini FastAPI service using Pydantic v2, dependency injection, and background tasks."
+      },
+      {
+        wk: "Wk 3",
+        topic: "ML/DL fundamentals refresh",
+        tasks: [
+          { t: "Gradient descent & backprop intuition", d: "Re-derive the intuition (not the full proofs) for how backprop actually updates weights.", src: "3Blue1Brown — Neural Networks", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" },
+          { t: "Loss functions & regularization", d: "Review common loss functions and why regularization (L1/L2, dropout) prevents overfitting.", src: "3Blue1Brown", url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi" },
+          { t: "Build a tiny neural net from raw Python", d: "Follow Karpathy's micrograd build to implement backprop yourself with no framework.", src: "Karpathy — Zero to Hero", url: "https://karpathy.ai/zero-to-hero.html" },
+          { t: "Build a tiny GPT from scratch", d: "Continue the series to build a minimal character-level GPT — the single best foundations exercise available.", src: "Karpathy — Zero to Hero", url: "https://karpathy.ai/zero-to-hero.html" }
+        ]
+      },
+      {
+        wk: "Wk 4",
+        topic: "PyTorch refresh",
+        tasks: [
+          { t: "Tensors & autograd", d: "Work through tensor operations and autograd without high-level wrappers.", src: "PyTorch 60-min Blitz", url: "https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html" },
+          { t: "nn.Module & training loops", d: "Write a training loop manually (forward, loss, backward, step) instead of using a trainer class.", src: "PyTorch — Learn the Basics", url: "https://docs.pytorch.org/tutorials/beginner/basics/intro.html" },
+          { t: "Train a small classifier", d: "Pick a small dataset of your choice and train a classifier end-to-end to lock in the training loop pattern.", src: "PyTorch — Quickstart", url: "https://docs.pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html" }
+        ]
+      },
+      {
+        wk: "Wk 5",
+        topic: "Consolidation project",
+        tasks: [
+          { t: "Serve your PyTorch model via FastAPI", d: "Connect the model you trained in Wk4 to the API you built in Wk2 — closes the loop between training and shipping.", src: "Your own build", url: "" },
+          { t: "Write the README", d: "Document what you relearned and why, framed as a portfolio artifact, not just notes.", src: "Your own build", url: "" }
+        ],
+        artifact: "GitHub repo \"foundations-rebuild\" — mini API + mini model, with a README explaining what you relearned."
+      }
+    ]
+  },
+  {
+    id: "p1",
+    title: "LLM / GenAI Core",
+    weeks: "Weeks 6–13",
+    goal: "Go from \"used LangChain in a project\" to \"understand what LangChain is abstracting, and can build RAG without it.\"",
+    weekGroups: [
+      {
+        wk: "Wk 6–7",
+        topic: "RAG from first principles",
+        tasks: [
+          { t: "Manual chunking strategy", d: "Write your own chunking logic (fixed-size, semantic, overlap) before reaching for a library helper.", src: "Hugging Face — Make Your Own RAG", url: "https://huggingface.co/blog/ngxson/make-your-own-rag" },
+          { t: "Manual embedding calls", d: "Call an embedding model directly and store/query the vectors yourself — no framework in between.", src: "Hugging Face — Make Your Own RAG", url: "https://huggingface.co/blog/ngxson/make-your-own-rag" },
+          { t: "Manual retrieval + prompt assembly", d: "Build the retrieval step and assemble the final prompt by hand to see exactly what a RAG framework hides from you.", src: "Hugging Face — Advanced RAG cookbook", url: "https://huggingface.co/learn/cookbook/en/advanced_rag" }
+        ]
+      },
+      {
+        wk: "Wk 8",
+        topic: "Vector databases properly",
+        tasks: [
+          { t: "Indexing strategies", d: "Go deep on one vector DB (Chroma or Pinecone) — learn how indexes are actually built, not just .add().", src: "Chroma docs — Getting Started", url: "https://docs.trychroma.com/docs/overview/getting-started" },
+          { t: "Similarity metrics & metadata filtering", d: "Practice cosine vs. dot-product vs. L2, and combine vector search with metadata filters.", src: "Chroma docs — Getting Started", url: "https://docs.trychroma.com/docs/overview/getting-started" }
+        ]
+      },
+      {
+        wk: "Wk 9",
+        topic: "Prompt engineering as a discipline",
+        tasks: [
+          { t: "Structured & few-shot prompting", d: "Practice structured output prompting and few-shot example design deliberately, not ad hoc.", src: "Anthropic prompt engineering docs", url: "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview" },
+          { t: "Rubric-based prompt evaluation", d: "Set up a simple rubric to score prompt outputs — this formalized practice is called out as an emerging standard.", src: "Anthropic prompt engineering docs", url: "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview" }
+        ]
+      },
+      {
+        wk: "Wk 10–11",
+        topic: "LangChain + LangGraph, properly this time",
+        tasks: [
+          { t: "Layer LangChain on top of manual RAG", d: "Rebuild your Wk6-7 pipeline using LangChain now that you understand each step underneath.", src: "LangChain — RAG tutorial", url: "https://python.langchain.com/docs/tutorials/rag/" },
+          { t: "LangGraph for stateful/agentic flows", d: "Learn LangGraph specifically — this is where the ecosystem is heading beyond simple chains.", src: "LangGraph docs", url: "https://langchain-ai.github.io/langgraph/" },
+          { t: "Applied patterns", d: "Read through applied LangChain/LangGraph patterns for realistic production setups.", src: "Maxime Labonne's blog", url: "https://mlabonne.github.io/blog/" }
+        ]
+      },
+      {
+        wk: "Wk 12",
+        topic: "Formalize your GraphRAG understanding",
+        tasks: [
+          { t: "Revisit your work GraphRAG pipeline", d: "Go back to what you already shipped at Aganitha and formalize the underlying technique.", src: "Your own work", url: "" },
+          { t: "Study GraphRAG techniques", d: "Read up on GraphRAG as an advanced RAG technique for complex domains — directly relevant to genomics/phenotype work.", src: "Microsoft Research — GraphRAG", url: "https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/" }
+        ]
+      },
+      {
+        wk: "Wk 13",
+        topic: "Project: RAG chatbot v2",
+        tasks: [
+          { t: "Add proper evaluation", d: "Extend your existing RAG Research Paper Chatbot project with a basic evaluation step.", src: "Your own project", url: "" },
+          { t: "Swap in the vector DB you learned properly", d: "Replace the original storage with the vector DB you deep-dived in Wk8.", src: "Your own project", url: "" },
+          { t: "Add basic agentic behavior via LangGraph", d: "Introduce a simple multi-step LangGraph flow into the chatbot.", src: "Your own project", url: "" }
+        ],
+        artifact: "Upgraded RAG project repo + a short write-up comparing manual RAG vs. framework RAG."
+      }
+    ]
+  },
+  {
+    id: "p2",
+    title: "Fine-Tuning & Model Customization",
+    weeks: "Weeks 14–17",
+    goal: "Understand when to fine-tune vs. when to RAG, and be able to actually do PEFT fine-tuning.",
+    weekGroups: [
+      {
+        wk: "Wk 14",
+        topic: "RAG vs. fine-tuning trade-offs",
+        tasks: [
+          { t: "Read the decision framework", d: "Understand when fine-tuning wins over RAG and vice versa — this decision-making skill is explicitly in-demand.", src: "Heavybit — RAG vs. Fine-Tuning", url: "https://www.heavybit.com/library/article/rag-vs-fine-tuning" }
+        ]
+      },
+      {
+        wk: "Wk 15–16",
+        topic: "LoRA/QLoRA hands-on",
+        tasks: [
+          { t: "Fine-tune a small open model with LoRA", d: "Use Hugging Face's peft library on a small model that fits on modest hardware.", src: "Hugging Face PEFT — Quicktour", url: "https://huggingface.co/docs/peft/quicktour" },
+          { t: "Try QLoRA for lower memory footprint", d: "Repeat with QLoRA to see the quantization trade-off in practice.", src: "Hugging Face PEFT blog", url: "https://huggingface.co/blog/samuellimabraz/peft-methods" }
+        ]
+      },
+      {
+        wk: "Wk 17",
+        topic: "Project: domain fine-tune",
+        tasks: [
+          { t: "Fine-tune on a biomedical/phenotype-style dataset", d: "Use even a toy version of a domain dataset relevant to your work.", src: "Hugging Face Hub", url: "https://huggingface.co/datasets" },
+          { t: "Compare against your RAG pipeline", d: "Run the same task through your RAG pipeline and the fine-tuned model, and compare outputs.", src: "Your own project", url: "" }
+        ],
+        artifact: "Short comparison notebook/write-up — RAG vs. fine-tuned model — on a task from your own domain."
+      }
+    ]
+  },
+  {
+    id: "p3",
+    title: "MLOps / LLMOps",
+    weeks: "Weeks 18–23",
+    goal: "Be the person who can take a model from notebook to reliably running in production.",
+    weekGroups: [
+      {
+        wk: "Wk 18",
+        topic: "Experiment tracking",
+        tasks: [
+          { t: "Set up MLflow or Weights & Biases", d: "Track experiments properly instead of print statements — log params, metrics, and artifacts.", src: "MLflow — Tracking Quickstart", url: "https://mlflow.org/docs/latest/ml/getting-started/quickstart/" }
+        ]
+      },
+      {
+        wk: "Wk 19–20",
+        topic: "Deployment & monitoring patterns",
+        tasks: [
+          { t: "Containerized model serving", d: "Formalize what you already know from Docker/FastAPI — health checks, versioning, rollback strategy.", src: "Docker + FastAPI docs", url: "https://fastapi.tiangolo.com/deployment/docker/" },
+          { t: "Basic monitoring & logging", d: "Add awareness-level monitoring (logging, latency tracking, simple drift signals) — not deep optimization.", src: "MLflow — Tracking Quickstart", url: "https://mlflow.org/docs/latest/ml/getting-started/quickstart/" }
+        ]
+      },
+      {
+        wk: "Wk 21",
+        topic: "LLMOps-specific concerns",
+        tasks: [
+          { t: "Vector DB lifecycle management", d: "Learn how to version and refresh embeddings/indexes over time.", src: "Chroma docs — Getting Started", url: "https://docs.trychroma.com/docs/overview/getting-started" },
+          { t: "Prompt & pipeline versioning", d: "Set up basic prompt/version management for your RAG pipeline.", src: "LangChain — RAG tutorial", url: "https://python.langchain.com/docs/tutorials/rag/" }
+        ]
+      },
+      {
+        wk: "Wk 22–23",
+        topic: "Project: productionize an earlier project",
+        tasks: [
+          { t: "Add experiment tracking", d: "Wire MLflow/W&B into your Phase 1 or Phase 2 project.", src: "Your own project", url: "" },
+          { t: "Add a basic CI pipeline", d: "Set up a simple CI pipeline (lint + test) for the project repo.", src: "Your own project", url: "" },
+          { t: "Add monitoring/logging", d: "Add basic logging and a health endpoint to the deployed service.", src: "Your own project", url: "" }
+        ],
+        artifact: "RAG or fine-tuning project, now with a full MLOps layer — data → model → API → deployment → monitoring."
+      }
+    ]
+  },
+  {
+    id: "p4",
+    title: "Agentic AI & Evaluation",
+    weeks: "Weeks 24–28",
+    goal: "Get comfortable with where the field is heading — autonomous agents — without over-investing, since this is still maturing.",
+    weekGroups: [
+      {
+        wk: "Wk 24–25",
+        topic: "Agent frameworks",
+        tasks: [
+          { t: "Build a basic multi-step agent", d: "Use LangGraph or deepen your existing MCP skill to build a real multi-step agent.", src: "LangGraph docs", url: "https://langchain-ai.github.io/langgraph/" },
+          { t: "Tool-use, memory, orchestration", d: "Understand the core agent patterns: tool calling, short/long-term memory, and orchestration logic.", src: "LangGraph docs", url: "https://langchain-ai.github.io/langgraph/" }
+        ]
+      },
+      {
+        wk: "Wk 26",
+        topic: "LLM evaluation",
+        tasks: [
+          { t: "Learn RAGAS", d: "Set up RAGAS to evaluate a RAG pipeline's faithfulness and relevance.", src: "RAGAS — Evaluate a RAG system", url: "https://docs.ragas.io/en/stable/getstarted/rag_eval/" },
+          { t: "LLM-as-judge patterns", d: "Learn the LLM-as-judge evaluation pattern for tasks that don't have a clean ground truth.", src: "RAGAS — Evaluate an AI Agent", url: "https://docs.ragas.io/en/stable/tutorials/agent/" }
+        ]
+      },
+      {
+        wk: "Wk 27–28",
+        topic: "Project: agentic workflow in your domain",
+        tasks: [
+          { t: "Build a multi-step domain agent", d: "E.g. given a gene name, retrieve, summarize, and cross-reference across sources.", src: "Your own project", url: "" },
+          { t: "Evaluate it with RAGAS", d: "Attach a real evaluation report to the agent's outputs.", src: "RAGAS — Evaluate an AI Agent", url: "https://docs.ragas.io/en/stable/tutorials/agent/" }
+        ],
+        artifact: "Agentic project with a real evaluation report attached."
+      }
+    ]
+  },
+  {
+    id: "p5",
+    title: "Positioning & Specialization",
+    weeks: "Weeks 29–32+",
+    goal: "Convert 7 months of rebuilt skill into a resume, portfolio, and story that gets interviews.",
+    weekGroups: [
+      {
+        wk: "Wk 29",
+        topic: "Resume update",
+        tasks: [
+          { t: "Apply the two-version resume strategy", d: "Biotech-facing version + skill-led \"AI/ML Engineer\" version — now backed by real new projects.", src: "Your own plan", url: "" }
+        ]
+      },
+      {
+        wk: "Wk 30",
+        topic: "Public write-ups",
+        tasks: [
+          { t: "Write 2–3 technical posts", d: "E.g. RAG vs fine-tuning, building an evaluated agent — doubles as interview talking points.", src: "Your own projects", url: "" }
+        ]
+      },
+      {
+        wk: "Wk 31",
+        topic: "Choose your primary track",
+        tasks: [
+          { t: "Decide: LLM/GenAI Engineer vs. MLOps/LLMOps Specialist", d: "Base it on what you enjoyed most in Phases 1–4 — both are strong, well-paying tracks.", src: "Your own reflection", url: "" }
+        ]
+      },
+      {
+        wk: "Wk 32+",
+        topic: "Lean into your domain edge",
+        tasks: [
+          { t: "Keep the Healthcare/Life Sciences angle front and center", d: "It's a genuine differentiator in interviews, not just a resume line.", src: "Your own positioning", url: "" }
+        ]
+      }
+    ]
+  }
+];
+
+const STORAGE_KEY = "roadmap-progress-v1";
+let checkedState = {};
+let activePhase = DATA[0].id;
+
+function allTaskIds(){
+  const ids = [];
+  DATA.forEach(phase => phase.weekGroups.forEach(wg => wg.tasks.forEach((task, i) => {
+    ids.push(phase.id + "__" + wg.wk + "__" + i);
+  })));
+  return ids;
+}
+
+function phaseTaskIds(phase){
+  const ids = [];
+  phase.weekGroups.forEach(wg => wg.tasks.forEach((task, i) => {
+    ids.push(phase.id + "__" + wg.wk + "__" + i);
+  }));
+  return ids;
+}
+
+async function loadProgress(){
+  try{
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if(res && res.value){
+      checkedState = JSON.parse(res.value);
+    }
+  }catch(e){
+    checkedState = {};
+  }
+}
+
+let saveTimer = null;
+function saveProgress(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(checkedState), false);
+    }catch(e){ /* best effort */ }
+  }, 250);
+}
+
+function renderNav(){
+  const nav = document.getElementById("phaseNav");
+  nav.innerHTML = "";
+  DATA.forEach((phase, idx) => {
+    const ids = phaseTaskIds(phase);
+    const done = ids.filter(id => checkedState[id]).length;
+    const total = ids.length;
+    const btn = document.createElement("button");
+    btn.className = "phase-btn" + (phase.id === activePhase ? " active" : "") + (done === total ? " done" : "");
+    btn.innerHTML = `<span>${idx}. ${phase.title}</span><span class="tick">${done}/${total}</span>`;
+    btn.addEventListener("click", () => { activePhase = phase.id; render(); });
+    nav.appendChild(btn);
+  });
+}
+
+function renderMain(){
+  const main = document.getElementById("mainPanel");
+  const phase = DATA.find(p => p.id === activePhase);
+  main.innerHTML = "";
+
+  const header = document.createElement("div");
+  header.className = "phase-header";
+  header.innerHTML = `
+    <div class="phase-eyebrow mono">${phase.weeks}</div>
+    <h2>${phase.title}</h2>
+    <div class="goal">${phase.goal}</div>
+  `;
+  main.appendChild(header);
+
+  phase.weekGroups.forEach(wg => {
+    const block = document.createElement("div");
+    block.className = "week-block";
+
+    const titleRow = document.createElement("div");
+    titleRow.className = "week-title";
+    titleRow.innerHTML = `<span class="wk">${wg.wk}</span><span class="topic">${wg.topic}</span>`;
+    block.appendChild(titleRow);
+
+    wg.tasks.forEach((task, i) => {
+      const id = phase.id + "__" + wg.wk + "__" + i;
+      const isChecked = !!checkedState[id];
+
+      const row = document.createElement("label");
+      row.className = "task" + (isChecked ? " checked" : "");
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = isChecked;
+      cb.addEventListener("change", () => {
+        if(cb.checked){ checkedState[id] = true; } else { delete checkedState[id]; }
+        saveProgress();
+        render();
+      });
+
+      const body = document.createElement("div");
+      body.className = "task-body";
+      const srcLink = task.url
+        ? `<a class="task-source" href="${task.url}" target="_blank" rel="noopener">${task.src}</a>`
+        : `<span class="task-source" style="cursor:default;">${task.src}</span>`;
+      body.innerHTML = `
+        <div class="task-title">${task.t}</div>
+        <div class="task-desc">${task.d}</div>
+        ${srcLink}
+      `;
+
+      row.appendChild(cb);
+      row.appendChild(body);
+      block.appendChild(row);
+    });
+
+    if(wg.artifact){
+      const note = document.createElement("div");
+      note.className = "artifact-note";
+      note.innerHTML = `<b>Artifact:</b> ${wg.artifact}`;
+      block.appendChild(note);
+    }
+
+    main.appendChild(block);
+  });
+}
+
+function renderProgress(){
+  const ids = allTaskIds();
+  const done = ids.filter(id => checkedState[id]).length;
+  const total = ids.length;
+  document.getElementById("doneCount").textContent = done;
+  document.getElementById("totalCount").textContent = total;
+  document.getElementById("progressFill").style.width = total ? ((done/total)*100) + "%" : "0%";
+}
+
+function render(){
+  renderNav();
+  renderMain();
+  renderProgress();
+}
+
+document.getElementById("resetBtn").addEventListener("click", async () => {
+  if(confirm("Clear all logged progress? This can't be undone.")){
+    checkedState = {};
+    saveProgress();
+    render();
+  }
+});
+
+(async function init(){
+  await loadProgress();
+  render();
+})();
+</script>
+</body>
+</html>
