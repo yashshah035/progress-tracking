@@ -5,19 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI/ML Roadmap Log</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root{
   --paper:#EFEBE1;
   --paper-raised:#F5F2E9;
+  --paper-card:#FAF8F3;
   --line:#D6CFBB;
+  --line-soft:#E2DCCB;
   --ink:#25261F;
   --ink-soft:#6B6C5E;
+  --ink-muted:#8F9083;
   --accent:#3F6B57;
   --accent-soft:#DCE6DD;
+  --accent-hover:#315544;
   --amber:#B5732A;
   --amber-soft:#EEDFC7;
-  --radius:3px;
+  --radius:6px;
+  --radius-sm:4px;
 }
 
 *{box-sizing:border-box;}
@@ -27,7 +32,7 @@ body{
   color:var(--ink);
   font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   font-size:15px;
-  line-height:1.5;
+  line-height:1.55;
   -webkit-font-smoothing:antialiased;
 }
 
@@ -35,262 +40,526 @@ body{
 
 /* ---------- Header ---------- */
 .masthead{
-  padding:28px 24px 20px;
+  padding:22px 28px 18px;
   border-bottom:1px solid var(--line);
+  background:var(--paper);
+  position:sticky;
+  top:0;
+  z-index:40;
+  box-shadow:0 2px 10px rgba(37,38,31,0.04);
 }
 .masthead-top{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
-  gap:20px;
-  flex-wrap:wrap;
-  max-width:1080px;
+  align-items:center;
+  gap:24px;
+  max-width:1280px;
   margin:0 auto;
+}
+.masthead-titles{
+  min-width:0;
+  flex:1;
 }
 .masthead h1{
   font-family:'Source Serif 4',Georgia,serif;
   font-weight:600;
-  font-size:28px;
-  margin:0 0 4px;
-  letter-spacing:-0.01em;
+  font-size:26px;
+  margin:0 0 3px;
+  letter-spacing:-0.015em;
+  color:var(--ink);
 }
 .masthead p{
   margin:0;
   color:var(--ink-soft);
-  font-size:14px;
-  max-width:46ch;
+  font-size:13.5px;
+  max-width:68ch;
+  line-height:1.45;
 }
 .progress-block{
-  min-width:220px;
+  min-width:200px;
   text-align:right;
+  flex-shrink:0;
+}
+.progress-header-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:flex-end;
+  gap:8px;
 }
 .progress-number{
   font-family:'JetBrains Mono',monospace;
-  font-size:30px;
+  font-size:26px;
   font-weight:700;
   color:var(--accent);
   line-height:1;
 }
+.progress-pct{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink-soft);
+}
 .progress-label{
-  font-size:12.5px;
+  font-size:11.5px;
   color:var(--ink-soft);
   margin-top:4px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  font-weight:500;
 }
 .progress-bar-track{
-  width:220px;
+  width:200px;
   height:6px;
   background:var(--line);
   border-radius:99px;
-  margin-top:10px;
+  margin-top:8px;
   overflow:hidden;
 }
 .progress-bar-fill{
   height:100%;
   background:var(--accent);
   border-radius:99px;
-  transition:width .4s ease;
+  transition:width .45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ---------- Layout ---------- */
 .app{
-  max-width:1080px;
+  max-width:1280px;
+  width:100%;
   margin:0 auto;
   display:grid;
-  grid-template-columns:220px 1fr;
+  grid-template-columns:260px 1fr;
   gap:0;
 }
-@media (max-width:760px){
+@media (max-width:860px){
   .app{grid-template-columns:1fr;}
 }
 
 /* ---------- Phase nav ---------- */
 .phase-nav{
   border-right:1px solid var(--line);
-  padding:20px 12px;
+  padding:24px 16px;
+  position:sticky;
+  top:80px;
+  align-self:start;
+  max-height:calc(100vh - 80px);
+  overflow-y:auto;
 }
-@media (max-width:760px){
+@media (max-width:860px){
   .phase-nav{
+    position:sticky;
+    top:74px;
+    z-index:30;
+    background:var(--paper);
     border-right:none;
     border-bottom:1px solid var(--line);
     display:flex;
     overflow-x:auto;
-    padding:14px 16px;
+    padding:10px 16px;
     gap:8px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
   }
+  .phase-nav::-webkit-scrollbar{display:none;}
+}
+.nav-header-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--ink-soft);
+  padding:0 12px 10px;
+  margin-bottom:4px;
+  border-bottom:1px dashed var(--line);
+}
+@media (max-width:860px){
+  .nav-header-label{display:none;}
 }
 .phase-btn{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:8px;
+  gap:10px;
   width:100%;
   text-align:left;
   padding:10px 12px;
-  margin-bottom:4px;
-  border:none;
+  margin-bottom:5px;
+  border:1px solid transparent;
   background:transparent;
   border-radius:var(--radius);
   cursor:pointer;
-  font-size:13.5px;
+  font-size:13px;
   color:var(--ink-soft);
   font-family:'Inter',sans-serif;
+  transition:all .15s ease;
+  user-select:none;
 }
-@media (max-width:760px){
-  .phase-btn{width:auto;white-space:nowrap;margin-bottom:0;}
+@media (max-width:860px){
+  .phase-btn{
+    width:auto;
+    white-space:nowrap;
+    margin-bottom:0;
+    padding:8px 12px;
+    font-size:12.5px;
+    border:1px solid var(--line);
+    background:var(--paper-raised);
+    border-radius:99px;
+  }
 }
-.phase-btn:hover{background:var(--paper-raised);}
+.phase-btn:hover{
+  background:var(--paper-raised);
+  color:var(--ink);
+  border-color:var(--line);
+}
 .phase-btn.active{
   background:var(--accent-soft);
-  color:var(--ink);
+  color:var(--accent);
+  border-color:rgba(63, 107, 87, 0.3);
   font-weight:600;
+}
+.phase-btn-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.phase-btn-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10.5px;
+  color:var(--ink-soft);
+  background:var(--paper-raised);
+  padding:2px 5px;
+  border-radius:3px;
+  border:1px solid var(--line);
+  flex-shrink:0;
+}
+.phase-btn.active .phase-btn-num{
+  background:#fff;
+  border-color:rgba(63,107,87,0.3);
+  color:var(--accent);
+}
+.phase-btn-title{
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
 .phase-btn .tick{
   font-family:'JetBrains Mono',monospace;
   font-size:11px;
   color:var(--ink-soft);
   flex-shrink:0;
+  background:var(--paper-raised);
+  padding:2px 6px;
+  border-radius:99px;
 }
-.phase-btn.done .tick{color:var(--accent);}
-.phase-btn.done::before{
-  content:"✓";
+.phase-btn.active .tick{
+  background:#fff;
   color:var(--accent);
-  font-size:11px;
-  margin-right:2px;
+  font-weight:700;
+}
+.phase-btn.done .tick{
+  color:var(--accent);
+  background:var(--accent-soft);
+  font-weight:700;
+}
+.phase-btn.done .phase-btn-num{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
 }
 
 /* ---------- Main ---------- */
-.main{padding:24px 28px 60px;}
-@media (max-width:760px){.main{padding:20px 16px 60px;}}
+.main{
+  padding:32px 40px 60px;
+  min-width:0;
+  animation:phaseFadeIn .22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes phaseFadeIn{
+  from{opacity:0;transform:translateY(6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@media (max-width:860px){.main{padding:22px 18px 50px;}}
 
 .phase-header{
-  margin-bottom:22px;
-  padding-bottom:16px;
+  margin-bottom:28px;
+  padding-bottom:20px;
   border-bottom:1px solid var(--line);
+}
+.phase-header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
 }
 .phase-eyebrow{
   font-family:'JetBrains Mono',monospace;
   font-size:12px;
+  font-weight:600;
   color:var(--accent);
-  margin-bottom:6px;
+  background:var(--accent-soft);
+  padding:3px 10px;
+  border-radius:99px;
+  display:inline-block;
 }
 .phase-header h2{
   font-family:'Source Serif 4',Georgia,serif;
-  font-size:22px;
+  font-size:26px;
   font-weight:600;
-  margin:0 0 8px;
+  margin:10px 0 8px;
+  letter-spacing:-0.01em;
 }
 .phase-header .goal{
   color:var(--ink-soft);
-  font-size:14px;
-  max-width:64ch;
+  font-size:14.5px;
+  max-width:76ch;
+  line-height:1.5;
 }
 
+/* Phase micro-progress bar */
+.phase-progress-card{
+  margin-top:16px;
+  padding:10px 14px;
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  max-width:600px;
+  transition:all .2s ease;
+}
+.phase-progress-text{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  font-weight:500;
+}
+.phase-progress-text b{
+  color:var(--ink);
+}
+.phase-progress-bar-wrap{
+  flex:1;
+  max-width:180px;
+  height:6px;
+  background:var(--line);
+  border-radius:99px;
+  overflow:hidden;
+}
+.phase-progress-bar-fill{
+  height:100%;
+  background:var(--accent);
+  border-radius:99px;
+  transition:width .45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Week blocks */
 .week-block{
-  margin-bottom:26px;
+  margin-bottom:28px;
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px 18px 12px;
+  box-shadow:0 1px 3px rgba(37,38,31,0.03);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.week-block:hover{
+  box-shadow:0 4px 14px rgba(37,38,31,0.05);
+  border-color:rgba(214, 207, 187, 0.9);
 }
 .week-title{
   display:flex;
-  align-items:baseline;
+  align-items:center;
   gap:10px;
-  margin-bottom:10px;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(214, 207, 187, 0.6);
 }
 .week-title .wk{
   font-family:'JetBrains Mono',monospace;
-  font-size:12px;
-  color:var(--ink-soft);
-  background:var(--paper-raised);
-  border:1px solid var(--line);
-  padding:2px 7px;
+  font-size:11.5px;
+  font-weight:600;
+  color:var(--accent);
+  background:var(--accent-soft);
+  border:1px solid rgba(63,107,87,0.2);
+  padding:2px 8px;
   border-radius:99px;
 }
 .week-title .topic{
   font-weight:600;
-  font-size:15.5px;
+  font-size:15px;
+  color:var(--ink);
 }
 
 .task{
   display:grid;
-  grid-template-columns:22px 1fr;
-  gap:10px;
-  padding:10px 8px;
-  border-radius:var(--radius);
+  grid-template-columns:24px 1fr;
+  gap:12px;
+  padding:10px 10px;
+  border-radius:var(--radius-sm);
   align-items:start;
+  transition:background .15s ease, transform .15s ease;
+  cursor:pointer;
 }
-.task:hover{background:var(--paper-raised);}
+.task:hover{
+  background:var(--paper-raised);
+  transform:translateX(2px);
+}
 .task input[type="checkbox"]{
   appearance:none;
-  width:18px;
-  height:18px;
+  width:19px;
+  height:19px;
   border:1.5px solid var(--ink-soft);
-  border-radius:4px;
+  border-radius:5px;
   margin-top:2px;
   cursor:pointer;
   position:relative;
-  background:var(--paper-raised);
+  background:#fff;
   flex-shrink:0;
+  transition:all .18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.task input[type="checkbox"]:active{
+  transform:scale(0.88);
 }
 .task input[type="checkbox"]:checked{
   background:var(--accent);
   border-color:var(--accent);
+  animation:checkBounce .24s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes checkBounce{
+  0%{transform:scale(0.85);}
+  50%{transform:scale(1.15);}
+  100%{transform:scale(1);}
 }
 .task input[type="checkbox"]:checked::after{
   content:"";
   position:absolute;
-  left:5px;
-  top:1px;
+  left:5.5px;
+  top:1.5px;
   width:5px;
-  height:9px;
+  height:10px;
   border:solid white;
   border-width:0 2px 2px 0;
   transform:rotate(40deg);
 }
 .task-body .task-title{
-  font-weight:500;
-  font-size:14.5px;
-  margin-bottom:2px;
+  font-weight:600;
+  font-size:14px;
+  margin-bottom:3px;
+  color:var(--ink);
+  transition:color .2s ease, text-decoration-color .2s ease;
 }
 .task.checked .task-title{
-  color:var(--ink-soft);
+  color:var(--ink-muted);
   text-decoration:line-through;
   text-decoration-color:var(--line);
 }
 .task-body .task-desc{
   font-size:13.5px;
   color:var(--ink-soft);
-  margin-bottom:6px;
+  margin-bottom:7px;
+  line-height:1.5;
 }
 .task-body .task-source{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
   font-family:'JetBrains Mono',monospace;
-  font-size:11.5px;
+  font-size:11px;
+  font-weight:500;
   color:var(--accent);
   text-decoration:none;
   background:var(--accent-soft);
-  padding:2px 8px;
+  padding:3px 9px;
   border-radius:99px;
+  transition:all .18s cubic-bezier(0.4, 0, 0.2, 1);
+  border:1px solid rgba(63, 107, 87, 0.15);
 }
-.task-body .task-source:hover{background:var(--amber-soft);color:var(--amber);}
+.task-body .task-source:hover{
+  background:var(--amber-soft);
+  color:var(--amber);
+  border-color:rgba(181, 115, 42, 0.3);
+  transform:translateY(-1px);
+}
 
 .artifact-note{
-  margin-top:8px;
-  padding:12px 14px;
+  margin-top:12px;
+  padding:12px 16px;
   background:var(--amber-soft);
-  border-left:3px solid var(--amber);
-  border-radius:var(--radius);
-  font-size:13.5px;
+  border-left:3.5px solid var(--amber);
+  border-radius:var(--radius-sm);
+  font-size:13px;
   color:#5C4319;
+  line-height:1.5;
+  transition:transform .2s ease;
+}
+.artifact-note:hover{
+  transform:translateX(2px);
 }
 .artifact-note b{color:var(--amber);}
 
+/* Phase footer navigation (Next / Prev) */
+.phase-nav-footer{
+  margin-top:48px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.phase-nav-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  color:var(--ink);
+  padding:9px 18px;
+  border-radius:var(--radius);
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  transition:all .18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.phase-nav-link:hover{
+  background:var(--accent-soft);
+  color:var(--accent);
+  border-color:rgba(63,107,87,0.3);
+  transform:translateY(-1px);
+}
+.phase-nav-link:active{
+  transform:scale(0.98);
+}
+.phase-nav-link.next{
+  margin-left:auto;
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+.phase-nav-link.next:hover{
+  background:var(--accent-hover);
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+/* ---------- Global Footer ---------- */
 .footer-bar{
-  max-width:1080px;
-  margin:0 auto;
-  padding:14px 28px 40px;
+  max-width:1280px;
+  width:100%;
+  margin:60px auto 32px;
+  padding:20px 28px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   color:var(--ink-soft);
   font-size:12.5px;
+  border-top:1px solid var(--line);
+  flex-wrap:wrap;
+  gap:12px;
 }
 .reset-link{
   background:none;
@@ -300,35 +569,43 @@ body{
   cursor:pointer;
   font-size:12.5px;
   font-family:'Inter',sans-serif;
+  padding:4px 8px;
+  border-radius:var(--radius-sm);
+  transition:all .15s ease;
 }
-.reset-link:hover{color:var(--amber);}
+.reset-link:hover{color:var(--amber);background:var(--amber-soft);}
 </style>
 </head>
 <body>
-
-<div class="masthead">
+<header class="masthead">
   <div class="masthead-top">
-    <div>
+    <div class="masthead-titles">
       <h1>AI/ML Roadmap Log</h1>
       <p>Life-Sciences GenAI/LLM Engineer track — six phases, built for ~1–1.5 hrs on weekdays and longer weekend blocks.</p>
     </div>
     <div class="progress-block">
-      <div class="progress-number"><span id="doneCount">0</span><span class="mono" style="color:var(--ink-soft);font-size:16px;">/<span id="totalCount">0</span></span></div>
-      <div class="progress-label">tasks logged</div>
+      <div class="progress-header-row">
+        <div class="progress-number"><span id="doneCount">0</span><span class="mono" style="color:var(--ink-soft);font-size:15px;">/<span id="totalCount">0</span></span></div>
+        <span class="progress-pct" id="progressPct">(0%)</span>
+      </div>
+      <div class="progress-label">tasks completed</div>
       <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
     </div>
   </div>
-</div>
+</header>
 
 <div class="app">
-  <nav class="phase-nav" id="phaseNav"></nav>
+  <aside class="phase-nav">
+    <div class="nav-header-label">Phases</div>
+    <nav id="phaseNav"></nav>
+  </aside>
   <main class="main" id="mainPanel"></main>
 </div>
 
-<div class="footer-bar">
-  <span>Progress is saved automatically to this artifact.</span>
+<footer class="footer-bar">
+  <span>Progress saves automatically to your browser storage (localStorage).</span>
   <button class="reset-link" id="resetBtn">Clear all progress</button>
-</div>
+</footer>
 
 <script>
 const DATA = [
@@ -616,9 +893,20 @@ function phaseTaskIds(phase){
 
 async function loadProgress(){
   try{
-    const res = await window.storage.get(STORAGE_KEY, false);
-    if(res && res.value){
-      checkedState = JSON.parse(res.value);
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      checkedState = JSON.parse(raw);
+      return;
+    }
+  }catch(e){}
+
+  try{
+    if(window.storage && typeof window.storage.get === 'function'){
+      const res = await window.storage.get(STORAGE_KEY, false);
+      if(res && res.value){
+        checkedState = JSON.parse(res.value);
+        return;
+      }
     }
   }catch(e){
     checkedState = {};
@@ -630,9 +918,52 @@ function saveProgress(){
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     try{
-      await window.storage.set(STORAGE_KEY, JSON.stringify(checkedState), false);
-    }catch(e){ /* best effort */ }
-  }, 250);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedState));
+    }catch(e){}
+
+    try{
+      if(window.storage && typeof window.storage.set === 'function'){
+        await window.storage.set(STORAGE_KEY, JSON.stringify(checkedState), false);
+      }
+    }catch(e){}
+  }, 200);
+}
+
+function updateNav(){
+  DATA.forEach(phase => {
+    const ids = phaseTaskIds(phase);
+    const done = ids.filter(id => checkedState[id]).length;
+    const total = ids.length;
+    const isActive = phase.id === activePhase;
+    const isDone = done === total && total > 0;
+    const btn = document.getElementById("phaseBtn_" + phase.id);
+    if(btn){
+      btn.className = "phase-btn" + (isActive ? " active" : "") + (isDone ? " done" : "");
+      const tick = btn.querySelector(".tick");
+      if(tick) tick.textContent = `${done}/${total}`;
+    }
+  });
+}
+
+function updatePhaseProgress(){
+  const currentIdx = DATA.findIndex(p => p.id === activePhase);
+  const phase = DATA[currentIdx];
+  const phaseIds = phaseTaskIds(phase);
+  const phaseDone = phaseIds.filter(id => checkedState[id]).length;
+  const phaseTotal = phaseIds.length;
+  const phasePct = phaseTotal ? Math.round((phaseDone / phaseTotal) * 100) : 0;
+
+  const badge = document.getElementById("phaseDoneBadge");
+  if(badge) badge.textContent = `${phaseDone}/${phaseTotal} completed`;
+
+  const text = document.getElementById("phaseDoneText");
+  if(text) text.textContent = `${phaseDone} of ${phaseTotal}`;
+
+  const pct = document.getElementById("phaseDonePct");
+  if(pct) pct.textContent = `(${phasePct}%)`;
+
+  const fill = document.getElementById("phaseProgressBarFill");
+  if(fill) fill.style.width = phasePct + "%";
 }
 
 function renderNav(){
@@ -642,25 +973,69 @@ function renderNav(){
     const ids = phaseTaskIds(phase);
     const done = ids.filter(id => checkedState[id]).length;
     const total = ids.length;
+    const isActive = phase.id === activePhase;
+    const isDone = done === total && total > 0;
+
     const btn = document.createElement("button");
-    btn.className = "phase-btn" + (phase.id === activePhase ? " active" : "") + (done === total ? " done" : "");
-    btn.innerHTML = `<span>${idx}. ${phase.title}</span><span class="tick">${done}/${total}</span>`;
-    btn.addEventListener("click", () => { activePhase = phase.id; render(); });
+    btn.id = "phaseBtn_" + phase.id;
+    btn.className = "phase-btn" + (isActive ? " active" : "") + (isDone ? " done" : "");
+    btn.innerHTML = `
+      <div class="phase-btn-left">
+        <span class="phase-btn-num">${idx + 1}</span>
+        <span class="phase-btn-title">${phase.title}</span>
+      </div>
+      <span class="tick">${done}/${total}</span>
+    `;
+    btn.addEventListener("click", () => {
+      activePhase = phase.id;
+      render();
+      if(window.innerWidth <= 860){
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     nav.appendChild(btn);
+
+    if(isActive && window.innerWidth <= 860){
+      setTimeout(() => {
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }, 50);
+    }
   });
 }
 
 function renderMain(){
   const main = document.getElementById("mainPanel");
-  const phase = DATA.find(p => p.id === activePhase);
+  const currentIdx = DATA.findIndex(p => p.id === activePhase);
+  const phase = DATA[currentIdx];
   main.innerHTML = "";
+
+  main.style.animation = 'none';
+  main.offsetHeight; /* trigger reflow for smooth entrance */
+  main.style.animation = null;
+
+  const phaseIds = phaseTaskIds(phase);
+  const phaseDone = phaseIds.filter(id => checkedState[id]).length;
+  const phaseTotal = phaseIds.length;
+  const phasePct = phaseTotal ? Math.round((phaseDone / phaseTotal) * 100) : 0;
 
   const header = document.createElement("div");
   header.className = "phase-header";
   header.innerHTML = `
-    <div class="phase-eyebrow mono">${phase.weeks}</div>
-    <h2>${phase.title}</h2>
+    <div class="phase-header-top">
+      <div class="phase-eyebrow mono">${phase.weeks}</div>
+      <span class="mono" id="phaseDoneBadge" style="font-size:12px; color:var(--ink-soft);">${phaseDone}/${phaseTotal} completed</span>
+    </div>
+    <h2>Phase ${currentIdx + 1}: ${phase.title}</h2>
     <div class="goal">${phase.goal}</div>
+    <div class="phase-progress-card">
+      <div class="phase-progress-text">
+        Phase Progress: <b id="phaseDoneText">${phaseDone} of ${phaseTotal}</b> <span id="phaseDonePct">(${phasePct}%)</span>
+      </div>
+      <div class="phase-progress-bar-wrap">
+        <div class="phase-progress-bar-fill" id="phaseProgressBarFill" style="width:${phasePct}%"></div>
+      </div>
+    </div>
   `;
   main.appendChild(header);
 
@@ -684,15 +1059,23 @@ function renderMain(){
       cb.type = "checkbox";
       cb.checked = isChecked;
       cb.addEventListener("change", () => {
-        if(cb.checked){ checkedState[id] = true; } else { delete checkedState[id]; }
+        if(cb.checked){
+          checkedState[id] = true;
+          row.classList.add("checked");
+        } else {
+          delete checkedState[id];
+          row.classList.remove("checked");
+        }
         saveProgress();
-        render();
+        updatePhaseProgress();
+        updateNav();
+        renderProgress();
       });
 
       const body = document.createElement("div");
       body.className = "task-body";
       const srcLink = task.url
-        ? `<a class="task-source" href="${task.url}" target="_blank" rel="noopener">${task.src}</a>`
+        ? `<a class="task-source" href="${task.url}" target="_blank" rel="noopener">${task.src} ↗</a>`
         : `<span class="task-source" style="cursor:default;">${task.src}</span>`;
       body.innerHTML = `
         <div class="task-title">${task.t}</div>
@@ -708,21 +1091,55 @@ function renderMain(){
     if(wg.artifact){
       const note = document.createElement("div");
       note.className = "artifact-note";
-      note.innerHTML = `<b>Artifact:</b> ${wg.artifact}`;
+      note.innerHTML = `<b>Artifact to build:</b> ${wg.artifact}`;
       block.appendChild(note);
     }
 
     main.appendChild(block);
   });
+
+  // Next / Previous Phase Navigation Footer
+  const navFooter = document.createElement("div");
+  navFooter.className = "phase-nav-footer";
+
+  if(currentIdx > 0){
+    const prevPhase = DATA[currentIdx - 1];
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "phase-nav-link prev";
+    prevBtn.innerHTML = `← Phase ${currentIdx}: ${prevPhase.title}`;
+    prevBtn.addEventListener("click", () => {
+      activePhase = prevPhase.id;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    navFooter.appendChild(prevBtn);
+  }
+
+  if(currentIdx < DATA.length - 1){
+    const nextPhase = DATA[currentIdx + 1];
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "phase-nav-link next";
+    nextBtn.innerHTML = `Phase ${currentIdx + 2}: ${nextPhase.title} →`;
+    nextBtn.addEventListener("click", () => {
+      activePhase = nextPhase.id;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    navFooter.appendChild(nextBtn);
+  }
+
+  main.appendChild(navFooter);
 }
 
 function renderProgress(){
   const ids = allTaskIds();
   const done = ids.filter(id => checkedState[id]).length;
   const total = ids.length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
   document.getElementById("doneCount").textContent = done;
   document.getElementById("totalCount").textContent = total;
-  document.getElementById("progressFill").style.width = total ? ((done/total)*100) + "%" : "0%";
+  document.getElementById("progressPct").textContent = `(${pct}%)`;
+  document.getElementById("progressFill").style.width = pct + "%";
 }
 
 function render(){
@@ -732,7 +1149,7 @@ function render(){
 }
 
 document.getElementById("resetBtn").addEventListener("click", async () => {
-  if(confirm("Clear all logged progress? This can't be undone.")){
+  if(confirm("Clear all logged progress across all phases? This cannot be undone.")){
     checkedState = {};
     saveProgress();
     render();
